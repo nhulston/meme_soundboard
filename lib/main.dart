@@ -1,5 +1,9 @@
+import 'dart:math';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -28,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color(0xFF474448),
       body: Column(
@@ -42,21 +47,89 @@ class _MyHomePageState extends State<MyHomePage> {
               fontWeight: FontWeight.w900,
             ),
           ),
+          SizedBox(height: height / 3),
           Center(
-            child: IconButton(
-              padding: EdgeInsets.zero,
-              icon: Icon(
-                Icons.play_arrow,
-                size: width / 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  onPressed: () {
+                      playAudio("bruh.mp3");
+                  },
+                  child: Text(
+                    'Bruh',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.architectsDaughter(
+                      color: const Color(0xFFFED766),
+                      fontSize: width / 16,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    playAudio("fart.mp3");
+                  },
+                  child: Text(
+                    'Fart',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.architectsDaughter(
+                      color: const Color(0xFFFED766),
+                      fontSize: width / 16,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    playAudio("boom.mp3");
+                  },
+                  child: Text(
+                    'Boom',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.architectsDaughter(
+                      color: const Color(0xFFFED766),
+                      fontSize: width / 16,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              playAudio("sheesh.mp3");
+            },
+            child: Text(
+              'Sheesh',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.architectsDaughter(
                 color: const Color(0xFFFED766),
+                fontSize: width / 16,
+                fontWeight: FontWeight.w900,
               ),
-              onPressed: () {
-                print("test");
-              },
             ),
           ),
         ],
       ),
     );
   }
+
+    void playRandomAudio() async {
+        List<String> list = ["bruh.mp3", "fart.mp3", "boom.mp3"];
+
+        int rand = Random().nextInt(list.length);
+
+
+        AudioPlayer audioPlayer = AudioPlayer();
+        AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
+        await audioCache.play(list[rand]);
+    }
+
+    void playAudio(String s) async {
+        AudioPlayer audioPlayer = AudioPlayer();
+        AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
+        await audioCache.play(s, volume: 1);
+    }
 }
