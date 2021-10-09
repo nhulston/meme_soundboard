@@ -130,6 +130,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     void playAudio(String s) async {
+        audioPlayer = AudioPlayer();
+        audioCache = AudioCache(fixedPlayer: audioPlayer);
         await audioCache.play(s, volume: 1);
     }
 }
