@@ -29,8 +29,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late AudioPlayer audioPlayer;
+  late AudioCache audioCache;
   @override
   Widget build(BuildContext context) {
+    audioPlayer = AudioPlayer();
+    audioCache = AudioCache(fixedPlayer: audioPlayer);
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -121,15 +126,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
         int rand = Random().nextInt(list.length);
 
-
-        AudioPlayer audioPlayer = AudioPlayer();
-        AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
-        await audioCache.play(list[rand]);
+        await audioCache.play(list[rand], volume: 1);
     }
 
     void playAudio(String s) async {
-        AudioPlayer audioPlayer = AudioPlayer();
-        AudioCache audioCache = AudioCache(fixedPlayer: audioPlayer);
         await audioCache.play(s, volume: 1);
     }
 }
